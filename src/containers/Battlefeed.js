@@ -1,25 +1,29 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchUsers } from '../actions/userActions'
 import Battle from '../components/Battle'
 
-export default class Battlefeed extends Component {
+class Battlefeed extends Component {
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/v1/battles")
-    .then(response => response.json())
-    .then(battles => {
-
-    })
+    this.props.fetchUsers()
   }
 
+  //in this render function, the 'this.state' is now 'this.props' from the const mapStateToProps below
   render() {
     return (
-      "hello"
       <div>
         <ul>
-          { battle list }
+          <p>Battle List</p>
         </ul>
       </div>
     )
   }
 
 }
+
+const mapStateToProps = state => ({
+  users: state.users.items
+})
+
+export default connect(mapStateToProps, { fetchUsers })(Battlefeed)
