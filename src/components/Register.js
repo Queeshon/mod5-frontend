@@ -49,13 +49,19 @@ class Register extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
+
         <form>
-          <input type="text" value={this.state.name} onChange={this.handleUserName}/>
-          <input type="text" value={this.state.username} onChange={this.handleUserUsername}/>
-          <input type="text" value={this.state.avatar} onChange={this.handleAvatar}/>
-          <input type="text" value={this.state.cutePic} onChange={this.handleCutePic}/>
+          <label>Name</label>
+          <input type="text" value={this.state.name} onChange={this.handleUserName}/><br/>
+          <label>Username</label>
+          <input type="text" value={this.state.username} onChange={this.handleUserUsername}/><br/>
+          <label>Avatar URL</label>
+          <input type="text" value={this.state.avatar} onChange={this.handleAvatar}/><br/>
+          <label>Cute Pic URL</label>
+          <input type="text" value={this.state.cutePic} onChange={this.handleCutePic}/><br/>
 
           <button type="submit" onSubmit={this.onSubmit}>Submit</button>
         </form>
