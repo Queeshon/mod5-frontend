@@ -7,6 +7,7 @@ class Register extends Component {
   state = {
     name: "",
     username: "",
+    password: "",
     avatar: "",
     cute_pic: ""
   }
@@ -17,31 +18,37 @@ class Register extends Component {
     })
   }
 
-  onSubmit = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault()
 
     const user = {
       name: this.state.name,
       username: this.state.username,
+      password: this.state.password,
       avatar: this.state.avatar,
       cute_pic: this.state.cute_pic
     }
-    console.log(user);
 
-    this.props.createUser(user)
+    this.props.onSubmit(user, this.props.history.push)
   }
 
   render() {
     return (
       <div>
+        <form onSubmit={this.handleSubmit}>
 
-        <form onSubmit={this.onSubmit}>
           <label>Name</label>
           <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
+
           <label>Username</label>
           <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/><br/>
+
+          <label>Password</label>
+          <input type="text" name="password" value={this.state.password} onChange={this.handleChange}/><br/>
+
           <label>Avatar URL</label>
           <input type="text" name="avatar" value={this.state.avatar} onChange={this.handleChange}/><br/>
+          
           <label>Cute Pic URL</label>
           <input type="text" name="cute_pic" value={this.state.cute_pic} onChange={this.handleChange}/><br/>
 
