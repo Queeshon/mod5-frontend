@@ -1,14 +1,26 @@
 import { FETCH_USERS, NEW_USER } from './types'
 
 export const fetchUsers = () => dispatch => {
-  fetch("http://localhost:3000/api/v1/users")
-  .then(response => response.json())
-  .then(users =>
-    dispatch({
-      type: FETCH_USERS,
-      users
+
+  if (localStorage.getItem('token')){
+    fetch("http://localhost:3000/api/v1/users", {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      }
     })
-  )
+    .then(response => response.json())
+    .then(users =>
+      dispatch({
+        type: FETCH_USERS,
+        users
+      })
+    )
+  } else {
+    this.props.history.push("/login")
+  }
+
 }
 
 export const createUser = userData => dispatch => {

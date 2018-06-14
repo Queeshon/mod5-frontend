@@ -1,29 +1,40 @@
 import { FETCH_BATTLES, NEW_BATTLE } from './types'
 
 export const fetchBattles = () => dispatch => {
-  fetch("http://localhost:3000/api/v1/battles")
-  .then(response => response.json())
-  .then(users =>
-    dispatch({
-      type: FETCH_BATTLES,
-      users
+  if (localStorage.getItem('token')) {
+    fetch("http://localhost:3000/api/v1/battles", {
+      headers: {
+        "Content-Type": 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      }
     })
-  )
+    .then(response => response.json())
+    .then(battles =>
+      dispatch({
+        type: FETCH_BATTLES,
+        battles
+      })
+    )
+  } else {
+    this.props.history.push("/login")
+  }
 }
 
-export const createUser = battleData => dispatch => {
+export const newBattle = battleData => dispatch => {
   fetch("http://localhost:3000/api/v1/battles", {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem('token')
     },
     body: JSON.stringify(battleData)
   })
   .then(response => response.json())
-  .then(user =>
+  .then(battle =>
     dispatch({
       type: NEW_BATTLE,
-      user
+      battle
     })
   )
 }

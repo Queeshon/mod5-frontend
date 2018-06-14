@@ -11,27 +11,9 @@ class Register extends Component {
     cute_pic: ""
   }
 
-  handleUserName = (event) => {
+  handleChange = (event) => {
     this.setState({
-      name: event.target.value
-    })
-  }
-
-  handleUserUsername = (event) => {
-    this.setState({
-      name: event.target.value
-    })
-  }
-
-  handleUserAvatar = (event) => {
-    this.setState({
-      name: event.target.value
-    })
-  }
-
-  handleUserCutePic = (event) => {
-    this.setState({
-      name: event.target.value
+      [event.target.name]: event.target.value
     })
   }
 
@@ -42,28 +24,28 @@ class Register extends Component {
       name: this.state.name,
       username: this.state.username,
       avatar: this.state.avatar,
-      cute_pic: this.state.cutePic
+      cute_pic: this.state.cute_pic
     }
+    console.log(user);
 
     this.props.createUser(user)
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
 
-        <form>
+        <form onSubmit={this.onSubmit}>
           <label>Name</label>
-          <input type="text" value={this.state.name} onChange={this.handleUserName}/><br/>
+          <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
           <label>Username</label>
-          <input type="text" value={this.state.username} onChange={this.handleUserUsername}/><br/>
+          <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/><br/>
           <label>Avatar URL</label>
-          <input type="text" value={this.state.avatar} onChange={this.handleAvatar}/><br/>
+          <input type="text" name="avatar" value={this.state.avatar} onChange={this.handleChange}/><br/>
           <label>Cute Pic URL</label>
-          <input type="text" value={this.state.cutePic} onChange={this.handleCutePic}/><br/>
+          <input type="text" name="cute_pic" value={this.state.cute_pic} onChange={this.handleChange}/><br/>
 
-          <button type="submit" onSubmit={this.onSubmit}>Submit</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     )
