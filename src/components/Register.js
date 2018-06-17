@@ -34,7 +34,7 @@ class Register extends Component {
 
   render() {
     return (
-      <div>
+      <div className="post">
         <form onSubmit={this.handleSubmit}>
 
           <label>Name</label>
@@ -48,7 +48,7 @@ class Register extends Component {
 
           <label>Avatar URL</label>
           <input type="text" name="avatar" value={this.state.avatar} onChange={this.handleChange}/><br/>
-          
+
           <label>Cute Pic URL</label>
           <input type="text" name="cute_pic" value={this.state.cute_pic} onChange={this.handleChange}/><br/>
 

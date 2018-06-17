@@ -17,6 +17,9 @@ export const createSession = (username, password) => dispatch => {
     localStorage.setItem('token', json.token)
     localStorage.setItem('user_id', json.user_id)
     localStorage.setItem('username', json.username)
+    localStorage.setItem('name', json.name)
+    localStorage.setItem('avatar', json.avatar)
+    localStorage.setItem('cute_pic', json.cute_pic)
     return json
   })
   .then(json => {

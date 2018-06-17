@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect, withRouter, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, NavLink, Redirect, withRouter, BrowserRouter as Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 //components
@@ -7,13 +7,13 @@ import Welcome from './components/Welcome'
 import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
-import StartBattleForm from './components/StartBattleForm'
 
-//container
+//containers
 import Battlefeed from './containers/Battlefeed'
+import StartBattleFormContainer from './containers/StartBattleFormContainer'
 
 //redux actions
-import { createUser } from './actions/userActions'
+import { fetchUsers, createUser } from './actions/userActions'
 import { createSession } from './actions/loginActions'
 
 import './App.css';
@@ -24,6 +24,12 @@ class App extends Component {
 
   state = {
     clicked: false
+  }
+
+  componentDidMount(){
+    if (localStorage.getItem('token')) {
+      this.props.fetchUsers()
+    }
   }
 
   login = (username, password, callback) => {
@@ -52,13 +58,17 @@ class App extends Component {
     if (localStorage.getItem("token")) {
       return (
         <ul className="actions vertical" onClick={this.handleLogout}>
-          <li><a href="/login" className="button big fit">Log Out</a></li>
+          <NavLink activeClassName="active" to="/login">
+            <li className="button big fit">Log Out</li>
+          </NavLink>
         </ul>
       )
     } else {
       return (
         <ul className="actions vertical">
-          <li><a href="login" className="button big fit">Log In</a></li>
+          <NavLink activeClassName="active" to="/login">
+            <li className="button big fit">Log In</li>
+          </NavLink>
         </ul>
       )
     }
@@ -72,23 +82,24 @@ class App extends Component {
   render() {
 
     return (
-      <div>
-        <div id="wrapper">
-          <header id="header">
-            <h1><a href="/battlefeed">Cute Pic Battles</a></h1>
-            <nav className="main">
-              <ul>
-                <li>
-                  <a className="fa-play" href="/battleform">BattleForm</a>
-                </li>
-                <li className="menu" onClick={this.handleMenuClick}>
-                  <a className="fa-bars" href="#menu">Menu</a>
-                </li>
-              </ul>
-            </nav>
-          </header>
+      <Router>
+        <div>
+          <div id="wrapper">
+            <header id="header">
+              <h1><a href="/battlefeed">Cute Pic Battles</a></h1>
+              <nav className="main">
+                <ul>
+                  <li>
+                    <a className="fa-play" href="/battleform">BattleForm</a>
+                  </li>
+                  <li className="menu" onClick={this.handleMenuClick}>
+                    <a className="fa-bars" href="#menu">Menu</a>
+                  </li>
+                </ul>
+              </nav>
+            </header>
 
-          <section id={this.state.clicked ? "menu-clicked" : "menu"}>
+            <section id={this.state.clicked ? "menu-clicked" : "menu"}>
               <section>
                 <ul className="links">
                   <li>
@@ -98,10 +109,10 @@ class App extends Component {
                     </a>
                   </li>
                   <li>
-                    <a href="/profile">
+                    <NavLink activeClassName="active" to="/profile">
                       <h3>Profile</h3>
                       <p>Account Information</p>
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
                     <a href="#">
@@ -115,26 +126,26 @@ class App extends Component {
               <section>
                 {this.handleToggleButton()}
               </section>
-          </section>
-      </div>
-      <Router>
-        <Switch>
-          <Route exact path='/' render={(props) => <Welcome />} />
-          <Route exact path='/login' render={(props) => <Login onSubmit={this.login} {...props}/>} />
-          <Route exact path='/register' render={(props) => <Register onSubmit={this.register} {...props}/>} />
-          {this.getToken() ? <Route exact path='/battlefeed' render={(props) => <Battlefeed {...props} />} /> : <Redirect to='/' />}
-          <Route exact path='/profile' render={(props) => <Profile {...props}/>} />
-          <Route exact path='/battleform' render={(props) => <StartBattleForm {...props}/>} />
-        </Switch>
+            </section>
+            <Switch>
+              <Route exact path='/' render={(props) => <Welcome />} />
+              <Route exact path='/login' render={(props) => <Login onSubmit={this.login} {...props}/>} />
+              <Route exact path='/register' render={(props) => <Register onSubmit={this.register} {...props}/>} />
+              {this.getToken() ? <Route exact path='/battlefeed' render={(props) => <Battlefeed {...props} />} /> : <Redirect to='/' />}
+              <Route exact path='/profile' render={(props) => <Profile {...props}/>} />
+              <Route exact path='/battleform' render={(props) => <StartBattleFormContainer users={this.props.users} {...props}/>} />
+            </Switch>
+          </div>
+        </div>
       </Router>
-      </div>
     )
   }
 
 }
 
 const mapStateToProps = state => ({
+  users: state.users.items,
   newUser: state.users.item
 })
 
-export default connect(mapStateToProps, {createUser, createSession})(App)
+export default connect(mapStateToProps, {fetchUsers, createUser, createSession})(App)

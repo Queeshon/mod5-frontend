@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../actions/userActions'
 import { fetchBattles } from '../actions/battleActions'
 import Battle from '../components/Battle'
 
@@ -8,7 +7,6 @@ class Battlefeed extends Component {
 
   componentDidMount() {
     if (localStorage.getItem('token')) {
-      this.props.fetchUsers()
       this.props.fetchBattles()
     }
   }
@@ -26,8 +24,6 @@ class Battlefeed extends Component {
       )
     })
 
-    console.log(this.props.battles)
-
     return (
       <div>
         {allBattles}
@@ -38,8 +34,7 @@ class Battlefeed extends Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.users.items,
   battles: state.battles.items
 })
 
-export default connect(mapStateToProps, { fetchUsers, fetchBattles })(Battlefeed)
+export default connect(mapStateToProps, { fetchBattles })(Battlefeed)

@@ -5,3 +5,5 @@ export const FETCH_BATTLES = 'FETCH_BATTLES'
 export const NEW_BATTLE = 'NEW_BATTLE'
 
 export const CREATE_SESSION = 'CREATE_SESSION'
+
+export const NEW_LIKE = 'NEW_LIKE'
