@@ -4,7 +4,9 @@ export default class StartBattleForm extends Component {
 
   render() {
     return (
-
+      <div>
+        <p>battleform</p>
+      </div>
     )
   }
 

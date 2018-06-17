@@ -6,10 +6,11 @@ export default class Battle extends Component {
   render() {
     return (
       <div className='battle-container'>
-        <Competitor />
+        <Competitor user={this.props.users[0]}/>
         <div>
+          <p>hello</p>
         </div>
-        <Competitor />
+        <Competitor user={this.props.users[1]}/>
       </div>
     )
   }

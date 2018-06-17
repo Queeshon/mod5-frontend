@@ -7,15 +7,10 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_USERS:
+    case CREATE_SESSION:
       return {
         ...state,
-        items: action.users
-      }
-    case NEW_USER:
-      return {
-        ...state,
-        item: action.user
+        item: action.json
       }
     default:
       return state
