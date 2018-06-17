@@ -20,13 +20,13 @@ class Battlefeed extends Component {
 
     const allBattles = this.props.battles.map((battle) => {
       return (
-        <div className="post" key={battle.id}>
-          <Battle users={battle.users} category={battle.category} id={battle.id}/>
+        <div className="post" key={battle.battle.id}>
+          <Battle users={battle.users} category={battle.battle.category} id={battle.battle.id} likes={battle.likes}/>
         </div>
       )
     })
 
-    console.log(this.props.battles);
+    console.log(this.props.battles)
 
     return (
       <div>
