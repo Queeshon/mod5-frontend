@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, NavLink, Redirect, withRouter, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, NavLink, Redirect, BrowserRouter as Router } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 //components
@@ -7,13 +7,14 @@ import Welcome from './components/Welcome'
 import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
+import EditProfile from './components/EditProfile'
 
 //containers
 import Battlefeed from './containers/Battlefeed'
 import StartBattleFormContainer from './containers/StartBattleFormContainer'
 
 //redux actions
-import { fetchUsers, createUser } from './actions/userActions'
+import { fetchUsers, createUser, editUser, deleteUser } from './actions/userActions'
 import { createSession } from './actions/loginActions'
 
 import './App.css';
@@ -32,6 +33,7 @@ class App extends Component {
     }
   }
 
+  //user functions
   login = (username, password, callback) => {
     this.props.createSession(username, password)
     callback('/battlefeed')
@@ -42,6 +44,17 @@ class App extends Component {
     callback("/battlefeed")
   }
 
+  edit = (userData, callback) => {
+    this.props.editUser(userData)
+    callback("/profile")
+  }
+
+  del = (callback) => {
+    this.props.deleteUser()
+    callback('/')
+  }
+
+  //menu functions
   handleMenuClick = () => {
     this.setState({
       clicked: !this.state.clicked
@@ -52,6 +65,9 @@ class App extends Component {
     localStorage.removeItem('token')
     localStorage.removeItem('user_id')
     localStorage.removeItem('username')
+    localStorage.removeItem('avatar')
+    localStorage.removeItem('cute_pic')
+    localStorage.removeItem('name')
   }
 
   handleToggleButton = () => {
@@ -86,11 +102,15 @@ class App extends Component {
         <div>
           <div id="wrapper">
             <header id="header">
-              <h1><a href="/battlefeed">Cute Pic Battles</a></h1>
+              <NavLink activeClassName="active" to="/battlefeed">
+                <h1>Cute Pic Battles</h1>
+              </NavLink>
               <nav className="main">
                 <ul>
                   <li>
-                    <a className="fa-play" href="/battleform">BattleForm</a>
+                    <NavLink activeClassName="active" className="fa-play" to="/battleform">
+                      <p>Start Battle</p>
+                    </NavLink>
                   </li>
                   <li className="menu" onClick={this.handleMenuClick}>
                     <a className="fa-bars" href="#menu">Menu</a>
@@ -103,22 +123,22 @@ class App extends Component {
               <section>
                 <ul className="links">
                   <li>
-                    <a href="#">
+                    <NavLink activeClassName="active" to="/profile" onClick={this.handleMenuClick}>
                       <h3>Friends</h3>
                       <p>Fellow Picture Battlers</p>
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <NavLink activeClassName="active" to="/profile">
+                    <NavLink activeClassName="active" to="/profile" onClick={this.handleMenuClick}>
                       <h3>Profile</h3>
                       <p>Account Information</p>
                     </NavLink>
                   </li>
                   <li>
-                    <a href="#">
+                    <NavLink activeClassName="active" to="/profile" onClick={this.handleMenuClick}>
                       <h3>Your Battles</h3>
                       <p>Battles Involving You</p>
-                    </a>
+                    </NavLink>
                   </li>
                 </ul>
               </section>
@@ -132,8 +152,9 @@ class App extends Component {
               <Route exact path='/login' render={(props) => <Login onSubmit={this.login} {...props}/>} />
               <Route exact path='/register' render={(props) => <Register onSubmit={this.register} {...props}/>} />
               {this.getToken() ? <Route exact path='/battlefeed' render={(props) => <Battlefeed {...props} />} /> : <Redirect to='/' />}
-              <Route exact path='/profile' render={(props) => <Profile {...props}/>} />
-              <Route exact path='/battleform' render={(props) => <StartBattleFormContainer users={this.props.users} {...props}/>} />
+              {localStorage.getItem('token') ? <Route exact path='/profile' render={(props) => <Profile onClick={this.del} {...props}/>} /> : <Redirect to="/"/>}
+              {localStorage.getItem('token') ? <Route exact path='/battleform' render={(props) => <StartBattleFormContainer users={this.props.users} {...props}/>} /> : <Redirect to="/"/>}
+              {localStorage.getItem('token') ? <Route exact path='/editprofile' render={(props) => <EditProfile onSubmit={this.edit} {...props}/>} /> : <Redirect to="/"/>}
             </Switch>
           </div>
         </div>
@@ -145,7 +166,8 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   users: state.users.items,
-  newUser: state.users.item
+  newUser: state.users.item,
+  editedUser: state.users.editItem
 })
 
-export default connect(mapStateToProps, {fetchUsers, createUser, createSession})(App)
+export default connect(mapStateToProps, {fetchUsers, createUser, editUser, deleteUser, createSession})(App)

@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createUser } from '../actions/userActions'
-import { NavLink } from 'react-router-dom'
+import { editUser } from '../actions/userActions'
 
 
-class Register extends Component {
+//create an edit action in useractions. make sure to go to reducer. check mapStateToProps
+
+class EditProfile extends Component {
 
   state = {
-    name: "",
-    username: "",
+    name: localStorage.getItem("name"),
+    username: localStorage.getItem("username"),
     password: "",
-    avatar: "",
-    cute_pic: ""
+    avatar: localStorage.getItem("avatar"),
+    cute_pic: localStorage.getItem("cute_pic")
   }
 
   handleChange = (event) => {
@@ -55,9 +56,7 @@ class Register extends Component {
             <label>Cute Pic URL</label>
             <input type="text" name="cute_pic" value={this.state.cute_pic} onChange={this.handleChange}/><br/>
 
-            <NavLink activeClassName="active" to="/battlefeed">
-              <input type="submit" value="Submit"/>
-            </NavLink>
+            <input type="submit" value="Submit"/>
           </form>
         </div>
       </div>
@@ -67,7 +66,7 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-  newUser: state.users.item
+  editedUser: state.users.editItem
 })
 
-export default connect(mapStateToProps, { createUser })(Register)
+export default connect(mapStateToProps, { editUser })(EditProfile)

@@ -1,8 +1,9 @@
-import { FETCH_USERS, NEW_USER } from '../actions/types'
+import { FETCH_USERS, NEW_USER, EDIT_USER, DELETE_USER } from '../actions/types'
 
 const initialState = {
   items: [],
-  item: {}
+  item: {},
+  editItem: {}
 }
 
 export default function(state = initialState, action) {
@@ -17,6 +18,13 @@ export default function(state = initialState, action) {
         ...state,
         item: action.user
       }
+    case EDIT_USER:
+      return {
+        ...state,
+        editItem: action.user
+      }
+    case DELETE_USER:
+      return state
     default:
       return state
   }

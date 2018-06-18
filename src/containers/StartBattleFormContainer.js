@@ -6,7 +6,7 @@ class StartBattleFormContainer extends Component {
   render() {
 
     return (
-      <div>
+      <div className="post-container">
         <StartBattleForm users={this.props.users}/>
       </div>
     )
