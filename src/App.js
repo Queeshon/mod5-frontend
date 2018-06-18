@@ -8,13 +8,14 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
 import EditProfile from './components/EditProfile'
+import StartBattleForm from './components/StartBattleForm'
 
 //containers
 import Battlefeed from './containers/Battlefeed'
-import StartBattleFormContainer from './containers/StartBattleFormContainer'
 
 //redux actions
 import { fetchUsers, createUser, editUser, deleteUser } from './actions/userActions'
+import { newBattle } from './actions/battleActions'
 import { createSession } from './actions/loginActions'
 
 import './App.css';
@@ -90,6 +91,13 @@ class App extends Component {
     }
   }
 
+  //battle functions
+  startBattle = (battleData, callback) => {
+    this.props.newBattle(battleData)
+    callback("/battlefeed")
+  }
+
+  //auth functions
   async getToken(){
     let token = await localStorage.getItem('token')
     return token
@@ -153,7 +161,7 @@ class App extends Component {
               <Route exact path='/register' render={(props) => <Register onSubmit={this.register} {...props}/>} />
               {this.getToken() ? <Route exact path='/battlefeed' render={(props) => <Battlefeed {...props} />} /> : <Redirect to='/' />}
               {localStorage.getItem('token') ? <Route exact path='/profile' render={(props) => <Profile onClick={this.del} {...props}/>} /> : <Redirect to="/"/>}
-              {localStorage.getItem('token') ? <Route exact path='/battleform' render={(props) => <StartBattleFormContainer users={this.props.users} {...props}/>} /> : <Redirect to="/"/>}
+              {localStorage.getItem('token') ? <Route exact path='/battleform' render={(props) => <StartBattleForm users={this.props.users} onSubmit={this.startBattle} {...props}/>} /> : <Redirect to="/"/>}
               {localStorage.getItem('token') ? <Route exact path='/editprofile' render={(props) => <EditProfile onSubmit={this.edit} {...props}/>} /> : <Redirect to="/"/>}
             </Switch>
           </div>
@@ -170,4 +178,4 @@ const mapStateToProps = state => ({
   editedUser: state.users.editItem
 })
 
-export default connect(mapStateToProps, {fetchUsers, createUser, editUser, deleteUser, createSession})(App)
+export default connect(mapStateToProps, {fetchUsers, createUser, editUser, deleteUser, newBattle, createSession})(App)

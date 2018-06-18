@@ -22,6 +22,7 @@ export const fetchBattles = () => dispatch => {
 }
 
 export const newBattle = battleData => dispatch => {
+  console.log(battleData)
   fetch("http://localhost:3000/api/v1/battles", {
     method: 'POST',
     headers: {
