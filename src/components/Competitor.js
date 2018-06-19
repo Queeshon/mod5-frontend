@@ -2,64 +2,44 @@ import React, { Component } from 'react'
 
 class Competitor extends Component {
 
-  state = {
-    likes: null
-  }
-
-  componentDidMount() {
-    if (this.props.likes.length !== 0) {
-      if (this.props.likes.length >= 20) {
-        this.setState({
-          likes: "WINNER"
-        })
-      } else {
-        this.setState({
-          likes: this.props.likes
-        })
-      }
-    }
-  }
-
   handleClick = (event) => {
     event.preventDefault()
 
-    const like = {
-      user_id: this.props.user.id,
-      battle_id: this.props.battleId
-    }
-
-    this.props.likePicture(like)
-    this.setState({
-      likes: this.state.likes + 1
-    })
+    this.props.likePicture()
   }
 
   handleWin = () => {
-    if (this.state.likes >= 20) {
+    if (this.props.likes >= 20) {
       return "WINNER"
+    } else if (this.props.otherLikes >= 20) {
+      return "LOSER"
     } else {
-      return "LIKES: " + this.state.likes
+      return "LIKES: " + this.props.likes
     }
   }
 
   handleWinClass = () => {
-    if (this.state.likes >= 20) {
+    if (this.props.likes >= 20) {
       return 'competitor-container'
+    } else if (this.props.otherLikes >= 20) {
+      return "competitor-container-loser"
     } else {
       return ''
     }
   }
 
   handleToggleButton = () => {
-    if (this.state.likes >= 20) {
+    if (this.props.likes >= 20) {
       return ''
+    } else if (this.props.otherLikes >= 20) {
+      return ""
     } else {
       return <button onClick={this.handleClick}>Like</button>
     }
   }
 
   render() {
-    console.log(this.props.otherUserLikes)
+    console.log(this.props.user)
     return (
       <div className={this.handleWinClass()}>
         <img className="image fit" src={this.props.user.cute_pic} alt="" />

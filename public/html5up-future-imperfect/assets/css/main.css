@@ -21,11 +21,11 @@
 }
 
 .competitor-container {
-	background-color: green;
+	background-color: springgreen;
 }
 
 .competitor-container-loser {
-	background-color: red;
+	background-color: #ff1a1a;
 }
 
 /* Reset */

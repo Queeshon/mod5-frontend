@@ -19,8 +19,28 @@ class Battle extends Component {
     }
   }
 
-  likePicture = (likeData) => {
-    this.props.newLike(likeData)
+  likePicture1 = () => {
+    const like = {
+      user_id: this.props.users[0].id,
+      battle_id: this.props.id
+    }
+
+    this.props.newLike(like)
+    this.setState({
+      user1Likes: this.state.user1Likes + 1
+    })
+  }
+
+  likePicture2 = () => {
+    const like = {
+      user_id: this.props.users[1].id,
+      battle_id: this.props.id
+    }
+
+    this.props.newLike(like)
+    this.setState({
+      user2Likes: this.state.user2Likes + 1
+    })
   }
 
   render() {
@@ -30,8 +50,8 @@ class Battle extends Component {
         <Competitor
           user={this.props.users[0]}
           likes={this.state.user1Likes}
-          otherUserLikes = {this.state.user2Likes}
-          likePicture={this.likePicture}
+          otherLikes = {this.state.user2Likes}
+          likePicture={this.likePicture1}
           battleId={this.props.id}
         />
         <div>
@@ -40,8 +60,8 @@ class Battle extends Component {
         <Competitor
           user={this.props.users[1]}
           likes={this.state.user2Likes}
-          otherUserLikes = {this.state.user1Likes}
-          likePicture={this.likePicture}
+          otherLikes = {this.state.user1Likes}
+          likePicture={this.likePicture2}
           battleId={this.props.id}
         />
       </div>
