@@ -48,9 +48,6 @@ class Register extends Component {
             <label>Password</label>
             <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/><br/>
 
-            <label>Avatar URL</label>
-            <input type="text" name="avatar" value={this.state.avatar} onChange={this.handleChange}/><br/>
-
             <label>Cute Pic URL</label>
             <input type="text" name="cute_pic" value={this.state.cute_pic} onChange={this.handleChange}/><br/>
 

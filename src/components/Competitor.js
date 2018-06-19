@@ -39,7 +39,6 @@ class Competitor extends Component {
   }
 
   render() {
-    console.log(this.props.user)
     return (
       <div className={this.handleWinClass()}>
         <img className="image fit" src={this.props.user.cute_pic} alt="" />

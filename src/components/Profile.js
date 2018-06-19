@@ -17,7 +17,6 @@ export default class Profile extends Component {
           <div className="center-user-info">
             <h1>{localStorage.getItem('username')}</h1>
             <h3>{localStorage.getItem('name')}</h3>
-            <h3>Score: {}</h3>
             <NavLink activeClassName="active" to="/editprofile">
               <button>Edit</button>
             </NavLink>
