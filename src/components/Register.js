@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createUser } from '../actions/userActions'
-import { NavLink } from 'react-router-dom'
 
 
 class Register extends Component {
@@ -55,9 +54,7 @@ class Register extends Component {
             <label>Cute Pic URL</label>
             <input type="text" name="cute_pic" value={this.state.cute_pic} onChange={this.handleChange}/><br/>
 
-            <NavLink activeClassName="active" to="/battlefeed">
-              <input type="submit" value="Submit"/>
-            </NavLink>
+            <input type="submit" value="Submit"/>
           </form>
         </div>
       </div>

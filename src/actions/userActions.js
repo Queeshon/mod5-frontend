@@ -32,6 +32,15 @@ export const createUser = userData => dispatch => {
     body: JSON.stringify(userData)
   })
   .then(response => response.json())
+  .then(user => {
+    localStorage.setItem('token', user.token)
+    localStorage.setItem('user_id', user.user_id)
+    localStorage.setItem('username', user.username)
+    localStorage.setItem('name', user.name)
+    localStorage.setItem('avatar', user.avatar)
+    localStorage.setItem('cute_pic', user.cute_pic)
+    return user
+  })
   .then(user =>
     dispatch({
       type: NEW_USER,

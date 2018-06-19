@@ -11,8 +11,6 @@ class Battlefeed extends Component {
     }
   }
 
-
-
   //in this render function, the 'this.state' is now 'this.props' from the const mapStateToProps below
   render() {
 
