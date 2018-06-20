@@ -44,7 +44,6 @@ class StartBattleForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <h1>Category: Cute</h1>
           <h1>Opponent: {this.randomUser().username}</h1>
-          <h1>Upload Cute Pic URL:</h1><input type="text" /><br />
           <input type="submit" value="Start Battle"/>
         </form>
       </div>

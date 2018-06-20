@@ -12,6 +12,7 @@ import StartBattleForm from './components/StartBattleForm'
 
 //containers
 import Battlefeed from './containers/Battlefeed'
+import UsersContainer from './containers/UsersContainer'
 
 //redux actions
 import { fetchUsers, createUser, editUser, deleteUser } from './actions/userActions'
@@ -131,7 +132,7 @@ class App extends Component {
               <section>
                 <ul className="links">
                   <li>
-                    <NavLink activeClassName="active" to="/profile" onClick={this.handleMenuClick}>
+                    <NavLink activeClassName="active" to="/users" onClick={this.handleMenuClick}>
                       <h3>Active Users</h3>
                       <p>Fellow Picture Battlers</p>
                     </NavLink>
@@ -163,6 +164,7 @@ class App extends Component {
               {localStorage.getItem('token') ? <Route exact path='/profile' render={(props) => <Profile onClick={this.del} {...props}/>} /> : <Redirect to="/"/>}
               {localStorage.getItem('token') ? <Route exact path='/battleform' render={(props) => <StartBattleForm users={this.props.users} onSubmit={this.startBattle} {...props}/>} /> : <Redirect to="/"/>}
               {localStorage.getItem('token') ? <Route exact path='/editprofile' render={(props) => <EditProfile onSubmit={this.edit} {...props}/>} /> : <Redirect to="/"/>}
+              <Route exact path='/users' render={(props) => <UsersContainer users={this.props.users} onSubmit={this.startBattle} {...props}/>} />
             </Switch>
           </div>
         </div>
