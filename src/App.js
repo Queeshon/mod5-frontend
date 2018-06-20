@@ -132,7 +132,7 @@ class App extends Component {
                 <ul className="links">
                   <li>
                     <NavLink activeClassName="active" to="/profile" onClick={this.handleMenuClick}>
-                      <h3>Friends</h3>
+                      <h3>Active Users</h3>
                       <p>Fellow Picture Battlers</p>
                     </NavLink>
                   </li>

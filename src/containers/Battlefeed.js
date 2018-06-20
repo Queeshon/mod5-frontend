@@ -14,7 +14,7 @@ class Battlefeed extends Component {
   //in this render function, the 'this.state' is now 'this.props' from the const mapStateToProps below
   render() {
 
-    const allBattles = this.props.battles.map((battle) => {
+    const allBattles = this.props.battles.reverse().map((battle) => {
       return (
         <div className="post" key={battle.battle.id}>
           <Battle users={battle.users} category={battle.battle.category} id={battle.battle.id} likes={battle.likes}/>
