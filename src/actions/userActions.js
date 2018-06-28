@@ -39,6 +39,7 @@ export const createUser = userData => dispatch => {
     localStorage.setItem('name', user.name)
     localStorage.setItem('avatar', user.avatar)
     localStorage.setItem('cute_pic', user.cute_pic)
+    localStorage.setItem('wins', user.wins)
     return user
   })
   .then(user =>

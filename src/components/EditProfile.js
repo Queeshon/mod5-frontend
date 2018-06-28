@@ -27,7 +27,6 @@ class EditProfile extends Component {
     const user = {
       name: this.state.name,
       username: this.state.username,
-      password: this.state.password,
       avatar: this.state.avatar,
       cute_pic: this.state.cute_pic
     }
@@ -46,12 +45,6 @@ class EditProfile extends Component {
 
             <label>Username</label>
             <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/><br/>
-
-            <label>Password</label>
-            <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/><br/>
-
-            <label>Avatar URL</label>
-            <input type="text" name="avatar" value={this.state.avatar} onChange={this.handleChange}/><br/>
 
             <label>Cute Pic URL</label>
             <input type="text" name="cute_pic" value={this.state.cute_pic} onChange={this.handleChange}/><br/>

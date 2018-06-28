@@ -40,12 +40,16 @@ class StartBattleForm extends Component {
 
   render() {
     return (
-      <div className="post">
-        <form onSubmit={this.handleSubmit}>
-          <h1>Category: Cute</h1>
-          <h1>Opponent: {this.randomUser().username}</h1>
-          <input type="submit" value="Start Battle"/>
-        </form>
+      <div className="login-container">
+        <div className="post">
+          <div className="center-user-info">
+            <form onSubmit={this.handleSubmit}>
+              <h1>Category: Cute</h1>
+              <h1>Opponent: {this.randomUser().username}</h1><br />
+              <input type="submit" value="Start Battle"/>
+            </form>
+          </div>
+        </div>
       </div>
     )
   }

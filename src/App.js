@@ -13,6 +13,7 @@ import StartBattleForm from './components/StartBattleForm'
 //containers
 import Battlefeed from './containers/Battlefeed'
 import UsersContainer from './containers/UsersContainer'
+import YourBattlefeed from './containers/YourBattlefeed'
 
 //redux actions
 import { fetchUsers, createUser, editUser, deleteUser } from './actions/userActions'
@@ -43,7 +44,7 @@ class App extends Component {
 
   register = (userData, callback) => {
     this.props.createUser(userData)
-    callback("/battlefeed")
+    callback("/profile")
   }
 
   edit = (userData, callback) => {
@@ -70,6 +71,7 @@ class App extends Component {
     localStorage.removeItem('avatar')
     localStorage.removeItem('cute_pic')
     localStorage.removeItem('name')
+    localStorage.removeItem('wins')
   }
 
   handleToggleButton = () => {
@@ -112,7 +114,7 @@ class App extends Component {
           <div id="wrapper">
             <header id="header">
               <NavLink activeClassName="active" to="/battlefeed">
-                <h1>Cute Pic Battles</h1>
+                <h1>Cute or Boot</h1>
               </NavLink>
               <nav className="main">
                 <ul>
@@ -144,7 +146,7 @@ class App extends Component {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink activeClassName="active" to="/profile" onClick={this.handleMenuClick}>
+                    <NavLink activeClassName="active" to="/yourbattles" onClick={this.handleMenuClick}>
                       <h3>Your Battles</h3>
                       <p>Battles Involving You</p>
                     </NavLink>
@@ -156,15 +158,17 @@ class App extends Component {
                 {this.handleToggleButton()}
               </section>
             </section>
+
             <Switch>
               <Route exact path='/' render={(props) => <Welcome />} />
               <Route exact path='/login' render={(props) => <Login onSubmit={this.login} {...props}/>} />
               <Route exact path='/register' render={(props) => <Register onSubmit={this.register} {...props}/>} />
-              {this.getToken() ? <Route exact path='/battlefeed' render={(props) => <Battlefeed {...props} />} /> : <Redirect to='/' />}
-              {localStorage.getItem('token') ? <Route exact path='/profile' render={(props) => <Profile onClick={this.del} {...props}/>} /> : <Redirect to="/"/>}
-              {localStorage.getItem('token') ? <Route exact path='/battleform' render={(props) => <StartBattleForm users={this.props.users} onSubmit={this.startBattle} {...props}/>} /> : <Redirect to="/"/>}
-              {localStorage.getItem('token') ? <Route exact path='/editprofile' render={(props) => <EditProfile onSubmit={this.edit} {...props}/>} /> : <Redirect to="/"/>}
+              <Route exact path='/battlefeed' render={(props) => <Battlefeed {...props} />} /> }
+              <Route exact path='/profile' render={(props) => <Profile onClick={this.del} {...props}/>} /> }
+              <Route exact path='/battleform' render={(props) => <StartBattleForm users={this.props.users} onSubmit={this.startBattle} {...props}/>} /> }
+              <Route exact path='/editprofile' render={(props) => <EditProfile onSubmit={this.edit} {...props}/>} /> }
               <Route exact path='/users' render={(props) => <UsersContainer users={this.props.users} onSubmit={this.startBattle} {...props}/>} />
+              <Route exact path='/yourbattles' render={(props) => <YourBattlefeed {...props}/>} />
             </Switch>
           </div>
         </div>

@@ -20,6 +20,7 @@ export const createSession = (username, password) => dispatch => {
     localStorage.setItem('name', json.name)
     localStorage.setItem('avatar', json.avatar)
     localStorage.setItem('cute_pic', json.cute_pic)
+    localStorage.setItem('wins', json.wins)
     return json
   })
   .then(json => {

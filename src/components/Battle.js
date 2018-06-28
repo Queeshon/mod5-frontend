@@ -50,17 +50,17 @@ class Battle extends Component {
         <Competitor
           user={this.props.users[0]}
           likes={this.state.user1Likes}
-          otherLikes = {this.state.user2Likes}
+          otherLikes={this.state.user2Likes}
           likePicture={this.likePicture1}
           battleId={this.props.id}
         />
         <div>
-          <h1>{this.props.category}</h1>
+          <h1>Cute?</h1>
         </div>
         <Competitor
           user={this.props.users[1]}
           likes={this.state.user2Likes}
-          otherLikes = {this.state.user1Likes}
+          otherLikes={this.state.user1Likes}
           likePicture={this.likePicture2}
           battleId={this.props.id}
         />

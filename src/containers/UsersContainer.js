@@ -25,12 +25,14 @@ class UsersContainer extends Component {
 
     const battleableUsers = mostUsers.map((user) => {
       return (
-        <div className="post" key={user.id}>
-          <img className="center-user-avatar" src={user.cute_pic} alt="" /><br />
-          <div className="center-user-info">
-            <h1>{user.username}</h1>
-            <h3>{user.name}</h3>
-            <button onClick={this.handleClick} id={user.id}>Battle</button>
+        <div className="login-container">
+          <div className="post" key={user.id}>
+            <img className="center-user-avatar" src={user.cute_pic} alt="" /><br />
+            <div className="center-user-info">
+              <h1>{user.username}</h1>
+              <h3>{user.name}</h3>
+              <button onClick={this.handleClick} id={user.id}>Battle</button>
+            </div>
           </div>
         </div>
       )

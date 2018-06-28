@@ -5,10 +5,10 @@ export default class Welcome extends Component {
 
   render() {
     return (
-      <div className="post-container">
+      <div className="login-container">
         <div className="post">
           <div className="center-user-info">
-            <h1>Welcome to Cute Pic Battles</h1>
+            <h1>Welcome to Cute Or Boot</h1>
             <a href="http://thecatapi.com"><img src="http://thecatapi.com/api/images/get?format=src&type=gif"/></a><br />
             <NavLink activeClassName="active" to="/register">
               <button>Register</button>
