@@ -163,12 +163,12 @@ class App extends Component {
               <Route exact path='/' render={(props) => <Welcome />} />
               <Route exact path='/login' render={(props) => <Login onSubmit={this.login} {...props}/>} />
               <Route exact path='/register' render={(props) => <Register onSubmit={this.register} {...props}/>} />
-              <Route exact path='/battlefeed' render={(props) => <Battlefeed {...props} />} /> }
-              <Route exact path='/profile' render={(props) => <Profile onClick={this.del} {...props}/>} /> }
-              <Route exact path='/battleform' render={(props) => <StartBattleForm users={this.props.users} onSubmit={this.startBattle} {...props}/>} /> }
-              <Route exact path='/editprofile' render={(props) => <EditProfile onSubmit={this.edit} {...props}/>} /> }
-              <Route exact path='/users' render={(props) => <UsersContainer users={this.props.users} onSubmit={this.startBattle} {...props}/>} />
-              <Route exact path='/yourbattles' render={(props) => <YourBattlefeed {...props}/>} />
+              {localStorage.getItem('token') ? <Route exact path='/battlefeed' render={(props) => <Battlefeed {...props} />} /> : <Redirect to="/"/>}
+              {localStorage.getItem('token') ? <Route exact path='/profile' render={(props) => <Profile onClick={this.del} {...props}/>} /> : <Redirect to="/"/>}
+              {localStorage.getItem('token') ? <Route exact path='/battleform' render={(props) => <StartBattleForm users={this.props.users} onSubmit={this.startBattle} {...props}/>} /> : <Redirect to="/" />}
+              {localStorage.getItem('token') ? <Route exact path='/editprofile' render={(props) => <EditProfile onSubmit={this.edit} {...props}/>} /> : <Redirect to="/" />}
+              {localStorage.getItem('token') ? <Route exact path='/users' render={(props) => <UsersContainer users={this.props.users} onSubmit={this.startBattle} {...props}/>} /> : <Redirect to="/" />}<Route exact path='/users' render={(props) => <UsersContainer users={this.props.users} onSubmit={this.startBattle} {...props}/>} />
+              {localStorage.getItem('token') ? <Route exact path='/yourbattles' render={(props) => <YourBattlefeed {...props}/>} /> : <Redirect to="/" />}
             </Switch>
           </div>
         </div>
