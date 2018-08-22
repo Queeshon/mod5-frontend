@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
     case FETCH_BATTLES:
       return {
         ...state,
-        items: action.battles
+        items: action.battles.reverse()
       }
     case NEW_BATTLE:
       return {
